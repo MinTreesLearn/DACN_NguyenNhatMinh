@@ -5,6 +5,7 @@ import com.luxury.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -34,6 +35,11 @@ public class ProductService {
         return productRepository.findByNameContainingIgnoreCase(keyword);
     }
 
+    public List<Product> filterProducts(String category, String color, String size,
+                                       BigDecimal minPrice, BigDecimal maxPrice, Boolean isPremium) {
+        return productRepository.findByFilters(category, color, size, minPrice, maxPrice, isPremium);
+    }
+
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
@@ -48,6 +54,10 @@ public class ProductService {
         product.setCategory(productDetails.getCategory());
         product.setIsPremium(productDetails.getIsPremium());
         product.setStockQuantity(productDetails.getStockQuantity());
+        if (productDetails.getSize() != null) product.setSize(productDetails.getSize());
+        if (productDetails.getColor() != null) product.setColor(productDetails.getColor());
+        if (productDetails.getBrand() != null) product.setBrand(productDetails.getBrand());
+        if (productDetails.getMaterial() != null) product.setMaterial(productDetails.getMaterial());
 
         return productRepository.save(product);
     }

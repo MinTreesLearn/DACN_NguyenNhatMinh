@@ -37,6 +37,21 @@ public class User {
     @Column(nullable = false, length = 20)
     private String role = "USER";
 
+    @Column(length = 20)
+    private String gender;
+
+    @Column(length = 50)
+    private String style;
+
+    @Column(name = "favorite_color", length = 50)
+    private String favoriteColor;
+
+    @Column(name = "is_vip")
+    private Boolean isVip = false;
+
+    @Column(name = "is_active")
+    private Boolean isActive = true;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
