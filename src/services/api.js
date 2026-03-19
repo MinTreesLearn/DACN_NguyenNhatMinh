@@ -155,6 +155,191 @@ export const orderAPI = {
   },
 };
 
+// User API
+export const userAPI = {
+  getProfile: async (userId) => {
+    try {
+      const response = await axiosInstance.get(`/users/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      return { status: 'error', data: null };
+    }
+  },
+
+  updateProfile: async (userId, userData) => {
+    try {
+      const response = await axiosInstance.put(`/users/${userId}`, userData);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Profile update failed' };
+    }
+  },
+
+  getCurrentProfile: async () => {
+    try {
+      const response = await axiosInstance.get('/users/profile');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching current user profile:', error);
+      return { status: 'error', data: null };
+    }
+  },
+};
+
+// Wishlist API
+export const wishlistAPI = {
+  getAll: async (userId) => {
+    try {
+      const response = await axiosInstance.get(`/wishlist/user/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching wishlist:', error);
+      return { status: 'error', data: [] };
+    }
+  },
+
+  add: async (userId, productId) => {
+    try {
+      const response = await axiosInstance.post('/wishlist', { userId, productId });
+      return response.data;
+    } catch (error) {
+      console.error('Error adding to wishlist:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Failed to add to wishlist' };
+    }
+  },
+
+  remove: async (wishlistId) => {
+    try {
+      const response = await axiosInstance.delete(`/wishlist/${wishlistId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error removing from wishlist:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Failed to remove from wishlist' };
+    }
+  },
+};
+
+// Review API
+export const reviewAPI = {
+  getByProduct: async (productId) => {
+    try {
+      const response = await axiosInstance.get(`/reviews/product/${productId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+      return { status: 'error', data: [] };
+    }
+  },
+
+  create: async (reviewData) => {
+    try {
+      const response = await axiosInstance.post('/reviews', reviewData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating review:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Failed to create review' };
+    }
+  },
+
+  update: async (reviewId, reviewData) => {
+    try {
+      const response = await axiosInstance.put(`/reviews/${reviewId}`, reviewData);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating review:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Failed to update review' };
+    }
+  },
+
+  delete: async (reviewId) => {
+    try {
+      const response = await axiosInstance.delete(`/reviews/${reviewId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error deleting review:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Failed to delete review' };
+    }
+  },
+};
+
+// Cart API
+export const cartAPI = {
+  get: async (userId) => {
+    try {
+      const response = await axiosInstance.get(`/cart/user/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching cart:', error);
+      return { status: 'error', data: null };
+    }
+  },
+
+  addItem: async (cartData) => {
+    try {
+      const response = await axiosInstance.post('/cart/items', cartData);
+      return response.data;
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Failed to add to cart' };
+    }
+  },
+
+  updateItem: async (itemId, quantity) => {
+    try {
+      const response = await axiosInstance.put(`/cart/items/${itemId}`, { quantity });
+      return response.data;
+    } catch (error) {
+      console.error('Error updating cart item:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Failed to update cart' };
+    }
+  },
+
+  removeItem: async (itemId) => {
+    try {
+      const response = await axiosInstance.delete(`/cart/items/${itemId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error removing cart item:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Failed to remove item' };
+    }
+  },
+
+  clear: async (cartId) => {
+    try {
+      const response = await axiosInstance.delete(`/cart/${cartId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      return { status: 'error', message: error.response?.data?.message || 'Failed to clear cart' };
+    }
+  },
+};
+
+// AI Stylist API
+export const aiStylistAPI = {
+  chat: async (userId, message) => {
+    try {
+      const response = await axiosInstance.post(`/ai-stylist/user/${userId}/chat`, { message });
+      return response.data;
+    } catch (error) {
+      console.error('Error chatting with AI stylist:', error);
+      return { status: 'error', message: error.response?.data?.message || 'AI chat failed' };
+    }
+  },
+
+  getHistory: async (userId) => {
+    try {
+      const response = await axiosInstance.get(`/ai-stylist/user/${userId}/history`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching chat history:', error);
+      return { status: 'error', data: [] };
+    }
+  },
+};
+
 // Mock data for development (when backend is not available)
 export const mockProducts = [
   {

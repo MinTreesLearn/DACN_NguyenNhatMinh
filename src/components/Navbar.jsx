@@ -29,6 +29,28 @@ function Navbar() {
             >
               Products
             </Link>
+            {isAuthenticated && (
+              <>
+                <Link
+                  to="/ai-stylist"
+                  className="text-luxury-white hover:text-luxury-gold transition-colors"
+                >
+                  AI Stylist
+                </Link>
+                <Link
+                  to="/orders"
+                  className="text-luxury-white hover:text-luxury-gold transition-colors"
+                >
+                  Orders
+                </Link>
+                <Link
+                  to="/wishlist"
+                  className="text-luxury-white hover:text-luxury-gold transition-colors"
+                >
+                  Wishlist
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Right Side */}
@@ -60,9 +82,12 @@ function Navbar() {
 
             {isAuthenticated ? (
               <div className="flex items-center gap-4">
-                <span className="text-luxury-white/80 text-sm">
+                <Link
+                  to="/profile"
+                  className="text-luxury-white/80 text-sm hover:text-luxury-gold transition-colors"
+                >
                   {user?.username}
-                </span>
+                </Link>
                 <button
                   onClick={logout}
                   className="px-4 py-2 glass-effect border border-luxury-white/20 rounded-lg text-luxury-white hover:border-luxury-gold transition-colors text-sm"
