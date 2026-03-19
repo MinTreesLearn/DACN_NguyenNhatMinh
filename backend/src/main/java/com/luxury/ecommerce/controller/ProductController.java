@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -49,6 +50,18 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<List<Product>>> searchProducts(@RequestParam String keyword) {
         List<Product> products = productService.searchProducts(keyword);
+        return ResponseEntity.ok(ApiResponse.success(products));
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<ApiResponse<List<Product>>> filterProducts(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String color,
+            @RequestParam(required = false) String size,
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice,
+            @RequestParam(required = false) Boolean isPremium) {
+        List<Product> products = productService.filterProducts(category, color, size, minPrice, maxPrice, isPremium);
         return ResponseEntity.ok(ApiResponse.success(products));
     }
 

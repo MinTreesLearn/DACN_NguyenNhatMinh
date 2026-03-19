@@ -41,6 +41,18 @@ public class Product {
     @Column(name = "stock_quantity")
     private Integer stockQuantity = 0;
 
+    @Column(length = 50)
+    private String size;
+
+    @Column(length = 50)
+    private String color;
+
+    @Column(length = 100)
+    private String brand;
+
+    @Column(length = 50)
+    private String material;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
