@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ProductCard({ product, index }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -22,17 +23,18 @@ export default function ProductCard({ product, index }) {
       )}
 
       {/* Image Container */}
-      <div className="relative aspect-[3/4] overflow-hidden">
-        <motion.img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover"
-          animate={{
-            scale: isHovered ? 1.1 : 1,
-          }}
-          transition={{ duration: 0.6 }}
-          loading="lazy"
-        />
+      <Link to={`/products/${product.id}`}>
+        <div className="relative aspect-[3/4] overflow-hidden">
+          <motion.img
+            src={product.imageUrl || product.image}
+            alt={product.name}
+            className="w-full h-full object-cover"
+            animate={{
+              scale: isHovered ? 1.1 : 1,
+            }}
+            transition={{ duration: 0.6 }}
+            loading="lazy"
+          />
 
         {/* Overlay on hover */}
         <motion.div
@@ -49,7 +51,8 @@ export default function ProductCard({ product, index }) {
           transition={{ duration: 0.3 }}
           className="absolute inset-0 glass-effect-dark"
         />
-      </div>
+        </div>
+      </Link>
 
       {/* Product Info */}
       <div className="p-6 space-y-3">
@@ -67,13 +70,15 @@ export default function ProductCard({ product, index }) {
             ${product.price.toLocaleString()}
           </p>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-4 py-2 glass-effect rounded-lg text-sm font-medium text-luxury-white border border-luxury-gold/30 hover:border-luxury-gold transition-all duration-300"
-          >
-            View Details
-          </motion.button>
+          <Link to={`/products/${product.id}`}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-4 py-2 glass-effect rounded-lg text-sm font-medium text-luxury-white border border-luxury-gold/30 hover:border-luxury-gold transition-all duration-300"
+            >
+              View Details
+            </motion.button>
+          </Link>
         </div>
       </div>
 
