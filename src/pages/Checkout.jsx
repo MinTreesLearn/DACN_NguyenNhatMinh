@@ -80,7 +80,7 @@ function Checkout() {
 
     if (response.status === 'success') {
       clearCart();
-      navigate('/order-success', { state: { order: response.data } });
+      navigate('/order-success', { state: { orderId: response.data?.id || response.data } });
     } else {
       setError(response.message || 'Order creation failed. Please try again.');
     }
