@@ -321,7 +321,7 @@ export const cartAPI = {
 export const aiStylistAPI = {
   chat: async (userId, message) => {
     try {
-      const response = await axiosInstance.post(`/ai-stylist/user/${userId}/chat`, { message });
+      const response = await axiosInstance.post('/ai-stylist/chat', { prompt: message });
       return response.data;
     } catch (error) {
       console.error('Error chatting with AI stylist:', error);
@@ -331,7 +331,7 @@ export const aiStylistAPI = {
 
   getHistory: async (userId) => {
     try {
-      const response = await axiosInstance.get(`/ai-stylist/user/${userId}/history`);
+      const response = await axiosInstance.get('/ai-stylist/history');
       return response.data;
     } catch (error) {
       console.error('Error fetching chat history:', error);

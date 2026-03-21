@@ -24,26 +24,33 @@ const AiStylist = () => {
     const fetchHistory = async () => {
       try {
         const response = await aiStylistAPI.getHistory(user.id);
-        if (response.status === 'success' && response.data) {
-          const formattedHistory = response.data.map((chat) => ({
-            id: chat.id,
-            text: chat.userMessage,
-            sender: 'user',
-            timestamp: new Date(chat.timestamp),
-          }));
+        if (response.status === 'success' && Array.isArray(response.data)) {
+          const formattedHistory = response.data.flatMap((chat) => {
+            const timestamp = chat.createdAt ? new Date(chat.createdAt) : new Date();
+            const items = [];
 
-          // Add AI responses
-          response.data.forEach((chat) => {
-            formattedHistory.push({
-              id: `ai-${chat.id}`,
-              text: chat.aiResponse,
-              sender: 'ai',
-              timestamp: new Date(chat.timestamp),
-              recommendations: chat.recommendations || [],
-            });
+            if (chat.prompt) {
+              items.push({
+                id: `${chat.id}-user`,
+                text: chat.prompt,
+                sender: 'user',
+                timestamp,
+              });
+            }
+
+            if (chat.response) {
+              items.push({
+                id: `${chat.id}-ai`,
+                text: chat.response,
+                sender: 'ai',
+                timestamp,
+                recommendations: [],
+              });
+            }
+
+            return items;
           });
 
-          // Sort by timestamp
           formattedHistory.sort((a, b) => a.timestamp - b.timestamp);
           setMessages(formattedHistory);
         }
@@ -85,10 +92,10 @@ const AiStylist = () => {
       if (response.status === 'success' && response.data) {
         const aiMessage = {
           id: Date.now() + 1,
-          text: response.data.aiResponse || response.data.message || 'I can help you find the perfect outfit!',
+          text: response.data.response || response.data.aiResponse || response.data.message || 'I can help you find the perfect outfit!',
           sender: 'ai',
           timestamp: new Date(),
-          recommendations: response.data.recommendations || [],
+          recommendations: response.data.recommendedProducts || response.data.recommendations || [],
         };
         setMessages((prev) => [...prev, aiMessage]);
       } else {

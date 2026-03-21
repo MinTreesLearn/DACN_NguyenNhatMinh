@@ -4,10 +4,33 @@ This guide will help you get the fullstack luxury e-commerce system running in u
 
 ---
 
+## 🔥 One-Command Run (FE + BE + DB)
+
+From the project root, run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run-system.ps1
+```
+
+What this script does:
+- Starts PostgreSQL via Docker container `luxury-postgres`
+- If port `5432` is already in use, it reuses the existing local PostgreSQL instead of failing
+- Initializes database schema/sample data if DB is empty
+- Installs frontend dependencies if needed
+- Opens 2 terminals: backend (`mvn spring-boot:run`) and frontend (`npm run dev`)
+
+If you want to reset and re-seed sample data:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run-system.ps1 -ResetData
+```
+
+---
+
 ## ⚡ Prerequisites Checklist
 
 - [ ] Java 17+ installed
-- [ ] PostgreSQL installed and running
+- [ ] Docker Desktop running (recommended) or PostgreSQL installed locally
 - [ ] Node.js 16+ installed
 - [ ] Maven installed (or use IDE with Maven support)
 

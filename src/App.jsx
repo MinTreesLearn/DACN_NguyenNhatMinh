@@ -17,7 +17,7 @@ import AiStylist from './pages/AiStylist';
 
 function App() {
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <AuthProvider>
         <CartProvider>
           <div className="min-h-screen bg-luxury-black">
