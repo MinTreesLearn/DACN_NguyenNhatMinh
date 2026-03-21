@@ -6,6 +6,29 @@ Tai lieu nay giup ban chay toan bo he thong tren may khac, bao gom:
 - PostgreSQL (port 5432)
 - Python AI Advisor FastAPI (port 8001)
 
+## 0. Chay khong can cai tool dev (khuyen nghi)
+
+Ban co the chay he thong ma khong can cai Node, Java, Maven, Python tren may host.
+Chi can cai Docker Desktop.
+
+Lenh khoi dong:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run-system-docker.ps1
+```
+
+Lenh dung:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\stop-system-docker.ps1
+```
+
+Xoa ca du lieu DB volume:
+
+```powershell
+docker compose down -v
+```
+
 ## 1. Phan mem can cai dat
 
 Cai cac thanh phan sau:
